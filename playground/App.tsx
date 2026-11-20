@@ -55,7 +55,7 @@ function App() {
                 <img
                   className={`w-56 h-56 rounded-full shadow-raised border-4 border-border ${isPlaying ? "animate-[reverse_spin_3s_linear_infinite]" : ""}`}
                   alt='gorillaz'
-                  src='./gorillaz2.png'
+                  src='/gorillaz2.png'
                 />
                 <div className='text-center space-y-2'>
                   <NeuCardTitle>Feel good inc.</NeuCardTitle>

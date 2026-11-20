@@ -1,6 +1,12 @@
-import { createContext, useContext, useEffect, useState } from "react"
 
-type Theme = "dark" | "light";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react"
+
+type Theme = "dark" | "light"
 
 type ThemeProviderProps = {
   children: React.ReactNode
@@ -18,42 +24,41 @@ const initialState: ThemeProviderState = {
   setTheme: () => null,
 }
 
-const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
+const ThemeProviderContext =
+  createContext<ThemeProviderState>(initialState)
 
 export function ThemeProvider({
   children,
   defaultTheme = "light",
-  storageKey = "vite-ui-theme",
+  storageKey = "neu-ui-theme",
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
-  )
 
-  useEffect(() => {
-    const root = window.document.documentElement
+  const [theme, setThemeState] = useState<Theme>(() => {
+    const storedTheme = localStorage.getItem(storageKey)
 
-    root.classList.remove("light", "dark")
-
-    if (theme === "light") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light"
-
-      root.classList.add(systemTheme)
-      return
+    if (storedTheme === "dark" || storedTheme === "light") {
+      return storedTheme
     }
 
+    return defaultTheme
+  })
+
+  useEffect(() => {
+    const root = document.documentElement
+
+    root.classList.remove("light", "dark")
     root.classList.add(theme)
   }, [theme])
 
+  const setTheme = (newTheme: Theme) => {
+    localStorage.setItem(storageKey, newTheme)
+    setThemeState(newTheme)
+  }
+
   const value = {
     theme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme)
-      setTheme(theme)
-    },
+    setTheme,
   }
 
   return (
@@ -66,8 +71,11 @@ export function ThemeProvider({
 export const useTheme = () => {
   const context = useContext(ThemeProviderContext)
 
-  if (context === undefined)
-    throw new Error("useTheme must be used within a ThemeProvider")
+  if (context === undefined) {
+    throw new Error(
+      "useTheme must be used within a ThemeProvider"
+    )
+  }
 
   return context
 }

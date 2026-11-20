@@ -103,7 +103,7 @@ export const AnchorRender: Story = {
 };
 
 
-// for checking sumit i created form story
+// for checking submit i created form story
 export const FormTest: Story = {
   render: () => {
     return (

@@ -5,9 +5,7 @@ import { NeuCheckbox } from '../src/components/CHECKBOX/Checkbox.tsx';
 import { NeuInput } from '../src/components/INPUT/Input.tsx';
 import Nav from './Nav.tsx'
 import { NeuProgress } from '../src/components/PROGRESS/Progress.tsx';
-import { NeuSlider } from '../src/components/SLIDER/Slider.tsx';
 import { NeuSwitch } from '../src/components/SWITCH/Switch.tsx';
-import { NeuTabsList, NeuTabsPanel, NeuTabsRoot, NeuTabsTab } from '../src/components/TABS/Tabs.tsx';
 import { useState } from 'react';
 import { LineChart, Line, ResponsiveContainer } from 'recharts';
 
